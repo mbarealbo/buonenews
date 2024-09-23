@@ -4,14 +4,18 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --loader ts-node/esm src/index.ts"
+    "dev": "tsx watch --env-file=.env src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "1.9.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0",
+    "openai": "^4.63.0"
   }
 }
