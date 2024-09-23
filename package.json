@@ -1,0 +1,17 @@
+{
+  "name": "buonenews",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --loader ts-node/esm src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}
