@@ -1,9 +1,15 @@
 import * as utils from "./utils/index.js";
 
 async function main() {
-  const rssUrls = await utils.fetchRssUrls();
-  const allNews = await utils.extractRssNews(rssUrls);
-  const positiveNews = await utils.getPositiveNews(allNews);
+  const links = await utils.fetchRssLinks();
+  const items = await utils.extractRssItems(links);
+  const evaluated = await utils.evaluateRssItems(items);
+
+  const positiveItems = evaluated.filter(
+    (item) => item.sentiment === "positive",
+  );
+
+  console.log(positiveItems);
 }
 
 main();
