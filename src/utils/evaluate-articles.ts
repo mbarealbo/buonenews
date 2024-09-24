@@ -44,6 +44,9 @@ export const evaluateArticles = async (
     {} as Record<string, ChatAnswer>,
   );
 
+  console.log(JSON.stringify(articles));
+  console.log(JSON.stringify(aiAnswers));
+
   return articles
     .filter((article) => aiAnswers[article.link])
     .map((article) => {

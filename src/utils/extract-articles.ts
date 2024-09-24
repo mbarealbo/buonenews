@@ -34,7 +34,6 @@ export const extractArticles = async (publications: Publication[]) => {
   );
 
   const data = articles.flat();
-  console.log(data);
   return data;
 };
 
