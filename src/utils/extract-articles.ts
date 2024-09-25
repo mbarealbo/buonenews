@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { it } from "date-fns/locale";
 import { XMLParser } from "fast-xml-parser";
 import sanitize from "sanitize-html";
 
@@ -33,7 +34,9 @@ export const extractArticles = async (publications: Publication[]) => {
           link: rssItem.link,
           pubDate: datetime.getTime(),
           organization: publication.organization,
-          formattedDateTime: format(datetime, "Pp"),
+          formattedDateTime: format(datetime, "d MMMM yyyy, HH:mm", {
+            locale: it,
+          }),
         };
       });
     }),

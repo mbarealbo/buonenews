@@ -9,12 +9,11 @@ const colors: { [key in Sentiment]: string } = {
 };
 ---
 <article>
-  <a href={link} class="flex flex-col items-start space-y-1">
+  <a href={link} class="flex flex-col p-6 items-start space-y-1 hover:bg-slate-100">
     <div class="text-sm leading-7 text-slate-500">
-      <span>{organization}</span>
-      <span> - </span>
+      <span class="font-semibold">{organization},</span>
       <time>{datetime}</time>
-      <span> - </span>
+      <span> — </span>
       <span class=`font-bold ${colors[sentiment as Sentiment]}`>{sentiment}</span>
     </div>
     <h1 class="text-lg font-bold text-slate-900">{title}</h1>
