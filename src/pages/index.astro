@@ -13,7 +13,7 @@ const grouped = utils.groupBy(allArticles, "organization");
 const promises = Object.entries(grouped).map(
   async ([organization, articles]) => {
     console.log(`Evaluating ${organization}...`);
-    return await utils.evaluateArticles(articles.slice(0, 5));
+    return await utils.evaluateArticles(articles.slice(0, 1));
   },
 );
 
@@ -36,14 +36,16 @@ const evaluated = await Promise.all(promises).then((data) => data.flat());
     <div class="container mx-auto my-4">
       <div class="grid grid-cols-1">
         {evaluated.map((data) => (
-          <Article 
-            link={data.article.link}
-            organization={data.article.organization} 
-            datetime={data.article.formattedDateTime} 
-            title={data.article.title} 
-            sentiment={data.sentiment} 
-            comment={data.comment}
-          />
+          <div class="p-6 border-b last:border-b-0">
+            <Article 
+              link={data.article.link}
+              organization={data.article.organization} 
+              datetime={data.article.formattedDateTime} 
+              title={data.article.title} 
+              sentiment={data.sentiment} 
+              comment={data.comment}
+            />
+          </div>
         ))}
       </div>
     </div>

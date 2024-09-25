@@ -8,16 +8,18 @@ const colors: { [key in Sentiment]: string } = {
   neutral: "text-sky-500",
 };
 ---
-<a href={link} target="_blank" class="p-6 border-border border-b space-y-1">
-  <div class="text-sm">
-    <span>{organization}</span>
-    <span class="text-gray-500"> - </span>
-    <span>{datetime}</span>
-    <span class="text-gray-500"> - </span>
-    <span class=`font-bold ${colors[sentiment as Sentiment]}`>{sentiment}</span>
-  </div>
-  <h1 class="text-lg font-bold">{title}</h1>
-  <div class="text-sm text-gray-500">
-    {comment}
-  </div>
-</a>
+<article>
+  <a href={link} class="flex flex-col items-start space-y-1">
+    <div class="text-sm leading-7 text-slate-500">
+      <span>{organization}</span>
+      <span> - </span>
+      <time>{datetime}</time>
+      <span> - </span>
+      <span class=`font-bold ${colors[sentiment as Sentiment]}`>{sentiment}</span>
+    </div>
+    <h1 class="text-lg font-bold text-slate-900">{title}</h1>
+    <div class="text-base leading-7 text-slate-700">
+      {comment}
+    </div>
+  </a>
+</article>
