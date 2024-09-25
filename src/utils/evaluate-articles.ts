@@ -1,8 +1,8 @@
 import OpenAI from "openai";
-import { fetchAIPrompt } from "./fetch-ai-prompt.js";
+import { fetchAIPrompts } from "./fetch-ai-prompts.js";
 
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import type { Article, RssItem } from "./extract-articles.js";
+import type { Article } from "./extract-articles.js";
 
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 type Sentiment = "positive" | "neutral" | "negative";
 
 type ChatAnswer = {
-  link: string;
+  title: string;
   sentiment: Sentiment;
   comment: string;
 };
@@ -34,29 +34,27 @@ export const evaluateArticles = async (
 
   const aiAnswers = answers.reduce(
     (acc, curr) => {
-      acc[curr.link] = {
-        link: curr.link,
-        sentiment: curr.sentiment,
-        comment: curr.comment,
-      };
+      acc[curr.title] = curr;
       return acc;
     },
     {} as Record<string, ChatAnswer>,
   );
 
-  console.log(JSON.stringify(articles));
-  console.log(JSON.stringify(aiAnswers));
+  return articles.map((article) => {
+    const aiAnswer = aiAnswers[article.title];
 
-  return articles
-    .filter((article) => aiAnswers[article.link])
-    .map((article) => {
-      const aiAnswer = aiAnswers[article.link];
-      return {
-        article,
-        sentiment: aiAnswer.sentiment,
-        comment: aiAnswer.comment,
-      };
-    });
+    if (!aiAnswer) {
+      const errrorMessage = `Failed to find AI Answer for article "${article.title}"`;
+      console.error(errrorMessage);
+      throw new Error(errrorMessage);
+    }
+
+    return {
+      article,
+      sentiment: aiAnswer.sentiment,
+      comment: aiAnswer.comment,
+    };
+  });
 };
 
 function parseChatCompletion(completion: OpenAI.ChatCompletion) {
@@ -77,17 +75,16 @@ function parseChatCompletion(completion: OpenAI.ChatCompletion) {
 async function getMessages(
   articles: Article[],
 ): Promise<ChatCompletionMessageParam[]> {
-  const aiPrompt = await fetchAIPrompt();
+  const aiPrompts = await fetchAIPrompts();
 
   const compactArticles = articles.map((article) => ({
-    link: article.link,
     title: article.title,
     description: article.description,
   }));
 
   const compiled = new Function(
     "data",
-    `const { items } = data; return \`${aiPrompt.user.replace("{{items}}", JSON.stringify(compactArticles))}\`;`,
+    `const { items } = data; return \`${aiPrompts.user.replace("{{items}}", JSON.stringify(compactArticles))}\`;`,
   );
 
   const userContent = compiled({ items: compactArticles });
@@ -95,7 +92,7 @@ async function getMessages(
   return [
     {
       role: "system",
-      content: aiPrompt.system,
+      content: aiPrompts.system,
     },
     {
       role: "user",

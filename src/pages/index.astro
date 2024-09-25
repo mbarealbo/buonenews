@@ -1,42 +1,49 @@
 ---
+import Article from "../components/article.astro";
 import * as utils from "../utils";
 
+// Fetch all Publications from DatoCMS
 const publications = await utils.fetchPublications();
-const articles = await utils.extractArticles(publications);
-const evaluated = await utils.evaluateArticles(articles);
 
-const colors = {
-  positive: "text-green-500",
-  negative: "text-red-500",
-  neutral: "text-gray-500",
-};
+// Extract all Articles from Publication XMLs and group them by Organization
+const allArticles = await utils.extractArticles(publications);
+const grouped = utils.groupBy(allArticles, "organization");
+
+// For each Organization contact the OpenAI API to evaluate the Articles
+const promises = Object.entries(grouped).map(
+  async ([organization, articles]) => {
+    console.log(`Evaluating ${organization}...`);
+    return utils.evaluateArticles(articles.slice(0, 1));
+  },
+);
+
+const evaluated = await Promise.all(promises).then((data) => data.flat());
 ---
-
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>buone.news</title>
-	</head>
-	<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Buone News!" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <title>buone.news</title>
+  </head>
+  <body>
     <div class="container mx-auto my-4">
       <div class="grid grid-cols-1">
         {evaluated.map((data) => (
-          <div class="p-6 border-border border-b">
-          <h2 class="text-lg font-bold">{data.article.title}</h2>
-            <p>{data.article.description}</p>
-            <p class="text-sm">{data.article.organization}</p>
-            <div>
-              <span class=`text-sm font-bold ${colors[data.sentiment]}`>{data.sentiment}</span>
-            </div>
-            <div class="text-sm text-gray-500">
-              {data.comment}
-            </div>
-          </div>
+          <Article 
+            link={data.article.link}
+            organization={data.article.organization} 
+            datetime={data.article.formattedDateTime} 
+            title={data.article.title} 
+            sentiment={data.sentiment} 
+            comment={data.comment}
+          />
         ))}
       </div>
     </div>

@@ -1,4 +1,7 @@
+import { format } from "date-fns";
 import { XMLParser } from "fast-xml-parser";
+import sanitize from "sanitize-html";
+
 import type { Publication } from "./fetch-publications";
 
 const parser = new XMLParser();
@@ -7,7 +10,8 @@ export type RssItem = {
   title: string;
   description: string;
   link: string;
-  pubDate: string;
+  pubDate: number;
+  formattedDateTime: string;
 };
 
 export type Article = RssItem & {
@@ -21,22 +25,36 @@ export const extractArticles = async (publications: Publication[]) => {
       const json = parser.parse(xml);
       const rssItems: RssItem[] = json.rss.channel.item;
 
-      return rssItems.map((rssItem) => {
+      return rssItems.filter(isValidRssItem).map((rssItem) => {
+        const datetime = new Date(rssItem.pubDate);
         return {
-          title: rssItem.title,
-          description: rssItem.description,
+          title: sanitize(rssItem.title.trim()),
+          description: sanitize(rssItem.description.trim()),
           link: rssItem.link,
-          pubDate: rssItem.pubDate,
+          pubDate: datetime.getTime(),
           organization: publication.organization,
+          formattedDateTime: format(datetime, "Pp"),
         };
       });
     }),
   );
 
   const data = articles.flat();
+  data.sort((a, b) => b.pubDate - a.pubDate);
+
   return data;
 };
 
 async function downloadXml(url: string) {
   return fetch(url).then((res) => res.text());
+}
+
+function isValidRssItem(rssItem: RssItem) {
+  return (
+    rssItem.title &&
+    rssItem.description &&
+    rssItem.link &&
+    rssItem.pubDate &&
+    !Number.isNaN(new Date(rssItem.pubDate).getTime())
+  );
 }

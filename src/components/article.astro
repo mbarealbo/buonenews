@@ -1,0 +1,24 @@
+---
+const { link, organization, datetime, title, sentiment, comment } = Astro.props;
+
+const colors = {
+  positive: "text-green-500",
+  negative: "text-red-500",
+  neutral: "text-sky-500",
+};
+---
+<a href={link} target="_blank" class="p-6 border-border border-b space-y-1">
+  <div class="text-sm">
+    <span>{organization}</span>
+    <span class="text-gray-500"> - </span>
+    <span>{datetime}</span>
+    <span class="text-gray-500"> - </span>
+    <span class=`font-bold ${colors[sentiment]}`>{sentiment}</span>
+  </div>
+  <h1 class="text-lg font-bold">{title}</h1>
+  <div>
+  </div>
+  <div class="text-sm text-gray-500">
+    {comment}
+  </div>
+</a>

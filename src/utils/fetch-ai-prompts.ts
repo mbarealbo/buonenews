@@ -19,7 +19,7 @@ type PromptQuery = {
   aiPrompt: Prompt;
 };
 
-export const fetchAIPrompt = async () => {
+export const fetchAIPrompts = async () => {
   const client = createGraphQLClient();
   const query = await client.request<PromptQuery>(document);
   return query.aiPrompt;
