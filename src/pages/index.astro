@@ -1,23 +1,7 @@
 ---
-import Article from "../components/article.astro";
-import * as utils from "../utils";
-
-// Fetch all Publications from DatoCMS
-const publications = await utils.fetchPublications();
-
-// Extract all Articles from Publication XMLs and group them by Organization
-const allArticles = await utils.extractArticles(publications);
-const grouped = utils.groupBy(allArticles, "organization");
-
-// For each Organization contact the OpenAI API to evaluate the Articles
-const promises = Object.entries(grouped).map(
-  async ([organization, articles]) => {
-    console.log(`Evaluating ${organization}...`);
-    return await utils.evaluateArticles(articles.slice(0, 5));
-  },
-);
-
-const evaluated = await Promise.all(promises).then((data) => data.flat());
+import ArticleList from "../components/article-list.astro";
+import Footer from "../components/footer.astro";
+import Header from "../components/header.astro";
 ---
 <!doctype html>
 <html lang="en">
@@ -33,22 +17,15 @@ const evaluated = await Promise.all(promises).then((data) => data.flat());
     <title>buone.news</title>
   </head>
   <body>
-    <div class="container mx-auto my-4">
-      <div class="grid grid-cols-1">
-        {evaluated.map((data) => (
-          <div class="border-b last:border-b-0 border-b-slate-300">
-            <Article 
-              link={data.article.link}
-              organization={data.article.organization} 
-              datetime={data.article.formattedDateTime} 
-              title={data.article.title} 
-              sentiment={data.sentiment} 
-              comment={data.comment}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    <header class="py-3 px-6 border-border border-b border-b-slate-200">
+      <Header />
+    </header>
+    <main class="mx-auto max-w-2xl">
+      <ArticleList />
+    </main>
+    <footer class="py-3 px-6 border-border border-t border-t-slate-200">
+      <Footer />
+    </footer>
 	</body>
 </html>
 

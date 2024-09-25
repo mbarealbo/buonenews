@@ -24,6 +24,11 @@ export const extractArticles = async (publications: Publication[]) => {
     publications.map(async (publication) => {
       const xml = await downloadXml(publication.rssLink);
       const json = parser.parse(xml);
+
+      if (!json.rss) {
+        console.log(`Failed to parse RSS for ${publication.organization}`);
+        console.log(json);
+      }
       const rssItems: RssItem[] = json.rss.channel.item;
 
       return rssItems.filter(isValidRssItem).map((rssItem) => {
