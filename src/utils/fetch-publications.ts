@@ -7,6 +7,7 @@ const document = gql`
       id
       organization
       rssLink
+      enabled
     }
   }
 `;
@@ -15,6 +16,7 @@ export type Publication = {
   id: string;
   organization: string;
   rssLink: string;
+  enabled: boolean;
 };
 
 type PublicationQuery = {
@@ -24,5 +26,5 @@ type PublicationQuery = {
 export const fetchPublications = async () => {
   const client = createGraphQLClient();
   const query = await client.request<PublicationQuery>(document);
-  return query.allPublications;
+  return query.allPublications.filter((publication) => publication.enabled);
 };
