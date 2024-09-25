@@ -13,7 +13,7 @@ const grouped = utils.groupBy(allArticles, "organization");
 const promises = Object.entries(grouped).map(
   async ([organization, articles]) => {
     console.log(`Evaluating ${organization}...`);
-    return utils.evaluateArticles(articles);
+    return await utils.evaluateArticles(articles.slice(0, 5));
   },
 );
 
