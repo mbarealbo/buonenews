@@ -1,7 +1,8 @@
 ---
+import type { Sentiment } from "../utils/evaluate-articles";
 const { link, organization, datetime, title, sentiment, comment } = Astro.props;
 
-const colors = {
+const colors: { [key in Sentiment]: string } = {
   positive: "text-green-500",
   negative: "text-red-500",
   neutral: "text-sky-500",
@@ -13,11 +14,9 @@ const colors = {
     <span class="text-gray-500"> - </span>
     <span>{datetime}</span>
     <span class="text-gray-500"> - </span>
-    <span class=`font-bold ${colors[sentiment]}`>{sentiment}</span>
+    <span class=`font-bold ${colors[sentiment as Sentiment]}`>{sentiment}</span>
   </div>
   <h1 class="text-lg font-bold">{title}</h1>
-  <div>
-  </div>
   <div class="text-sm text-gray-500">
     {comment}
   </div>

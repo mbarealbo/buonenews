@@ -8,7 +8,7 @@ const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
 
-type Sentiment = "positive" | "neutral" | "negative";
+export type Sentiment = "positive" | "neutral" | "negative";
 
 type ChatAnswer = {
   title: string;
