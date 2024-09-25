@@ -1,0 +1,15 @@
+query Publication {
+  allPublications {
+    organization
+    rssLink
+    enabled
+  }
+}
+
+query Page($slug: String!) {
+  page(filter: { slug: { eq: $slug } }) {
+    id
+    slug
+    title
+  }
+}

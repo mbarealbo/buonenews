@@ -1,30 +1,8 @@
-import { gql } from "graphql-request";
+import { PublicationDocument } from "../codegen/graphql.js";
 import { createGraphQLClient } from "./graphql-client.js";
-
-const document = gql`
-  query {
-    allPublications {
-      id
-      organization
-      rssLink
-      enabled
-    }
-  }
-`;
-
-export type Publication = {
-  id: string;
-  organization: string;
-  rssLink: string;
-  enabled: boolean;
-};
-
-type PublicationQuery = {
-  allPublications: Publication[];
-};
 
 export const fetchPublications = async () => {
   const client = createGraphQLClient();
-  const query = await client.request<PublicationQuery>(document);
-  return query.allPublications.filter((publication) => publication.enabled);
+  const query = await client.request(PublicationDocument);
+  // return query.allPublications.filter((publication) => publication.enabled);
 };
