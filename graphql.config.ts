@@ -20,6 +20,7 @@ const config: CodegenConfig = {
         fragmentMasking: false,
       },
       config: {
+        useTypeImports: true,
         useIndexSignature: true,
         strictScalars: true,
         scalars: {

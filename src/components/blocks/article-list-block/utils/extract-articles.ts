@@ -1,24 +1,22 @@
-import type { PublicationRecord } from "@/codegen/graphql";
+import type { PublicationFragment } from "@/codegen/graphql";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import { XMLParser } from "fast-xml-parser";
 import sanitize from "sanitize-html";
+import { isValidArticle } from "./is-valid-article";
 
 const parser = new XMLParser();
 
-export type RssItem = {
+export type Article = {
   title: string;
   description: string;
   link: string;
   pubDate: number;
   formattedDateTime: string;
-};
-
-export type Article = RssItem & {
   organization: string;
 };
 
-export const extractArticles = async (publications: PublicationRecord[]) => {
+export const extractArticles = async (publications: PublicationFragment[]) => {
   const articles = await Promise.all(
     publications.map(async (publication) => {
       const xml = await downloadXml(publication.rssLink);
@@ -28,9 +26,9 @@ export const extractArticles = async (publications: PublicationRecord[]) => {
         console.log(`Failed to parse RSS for ${publication.organization}`);
         console.log(json);
       }
-      const rssItems: RssItem[] = json.rss.channel.item;
+      const articles: Article[] = json.rss.channel.item;
 
-      return rssItems.filter(isValidRssItem).map((rssItem) => {
+      return articles.filter(isValidArticle).map((rssItem) => {
         const datetime = new Date(rssItem.pubDate);
         return {
           title: sanitize(rssItem.title.trim()),
@@ -54,14 +52,4 @@ export const extractArticles = async (publications: PublicationRecord[]) => {
 
 async function downloadXml(url: string) {
   return fetch(url).then((res) => res.text());
-}
-
-function isValidRssItem(rssItem: RssItem) {
-  return (
-    rssItem.title &&
-    rssItem.description &&
-    rssItem.link &&
-    rssItem.pubDate &&
-    !Number.isNaN(new Date(rssItem.pubDate).getTime())
-  );
 }

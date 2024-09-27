@@ -1,6 +1,25 @@
 ---
-const { pages } = Astro.props;
+import type { PageFragment } from "@/codegen/graphql";
 import Logo from "./logo.astro";
----
-<Logo />
 
+interface Props {
+  pages: PageFragment[];
+}
+
+const currentPath = Astro.url.pathname;
+const pages = Astro.props.pages.filter((page) => !page.hidden);
+---
+<div class="flex justify-between items-center gap-6 overflow-auto py-3 px-6">
+  <Logo />
+
+  <nav class="flex gap-6">
+    {pages.map((page) => {
+      const isActive = currentPath === `/${page.slug}`;
+      return (
+        <a href={`/${page.slug}`} class={`whitespace-nowrap ${isActive ? "text-orange-500" : "text-slate-500"}`}>
+          {page.navigationLabel}
+        </a>
+      )
+    })}
+  </nav>
+</div>

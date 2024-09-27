@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query Publication {\n  allPublications {\n    organization\n    rssLink\n    enabled\n  }\n}\n\nquery AiPrompt {\n  aiPrompt {\n    system\n    user\n  }\n}\n\nquery PageSlug {\n  allPages {\n    slug\n  }\n}\n\nquery Page($slug: String!) {\n  page(filter: {slug: {eq: $slug}}) {\n    id\n    slug\n    title\n  }\n}": types.PublicationDocument,
+    "query Page {\n  allPages {\n    ...Page\n  }\n}\n\nquery Publication {\n  allPublications {\n    ...Publication\n  }\n}\n\nquery Prompt {\n  prompt {\n    ...Prompt\n  }\n}\n\nquery Site {\n  _site {\n    globalSeo {\n      siteName\n      titleSuffix\n      fallbackSeo {\n        title\n        description\n      }\n    }\n  }\n}\n\nfragment Page on PageRecord {\n  navigationLabel\n  slug\n  hidden\n  content {\n    value\n    blocks {\n      __typename\n      ...ArticleListBlock\n    }\n  }\n  seo {\n    title\n    description\n  }\n}\n\nfragment Publication on PublicationRecord {\n  __typename\n  id\n  organization\n  rssLink\n  enabled\n}\n\nfragment Prompt on PromptRecord {\n  __typename\n  system\n  user\n}\n\nfragment ArticleListBlock on ArticleListBlockRecord {\n  __typename\n  id\n}": types.PageDocument,
 };
 
 /**
@@ -33,7 +33,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Publication {\n  allPublications {\n    organization\n    rssLink\n    enabled\n  }\n}\n\nquery AiPrompt {\n  aiPrompt {\n    system\n    user\n  }\n}\n\nquery PageSlug {\n  allPages {\n    slug\n  }\n}\n\nquery Page($slug: String!) {\n  page(filter: {slug: {eq: $slug}}) {\n    id\n    slug\n    title\n  }\n}"): (typeof documents)["query Publication {\n  allPublications {\n    organization\n    rssLink\n    enabled\n  }\n}\n\nquery AiPrompt {\n  aiPrompt {\n    system\n    user\n  }\n}\n\nquery PageSlug {\n  allPages {\n    slug\n  }\n}\n\nquery Page($slug: String!) {\n  page(filter: {slug: {eq: $slug}}) {\n    id\n    slug\n    title\n  }\n}"];
+export function graphql(source: "query Page {\n  allPages {\n    ...Page\n  }\n}\n\nquery Publication {\n  allPublications {\n    ...Publication\n  }\n}\n\nquery Prompt {\n  prompt {\n    ...Prompt\n  }\n}\n\nquery Site {\n  _site {\n    globalSeo {\n      siteName\n      titleSuffix\n      fallbackSeo {\n        title\n        description\n      }\n    }\n  }\n}\n\nfragment Page on PageRecord {\n  navigationLabel\n  slug\n  hidden\n  content {\n    value\n    blocks {\n      __typename\n      ...ArticleListBlock\n    }\n  }\n  seo {\n    title\n    description\n  }\n}\n\nfragment Publication on PublicationRecord {\n  __typename\n  id\n  organization\n  rssLink\n  enabled\n}\n\nfragment Prompt on PromptRecord {\n  __typename\n  system\n  user\n}\n\nfragment ArticleListBlock on ArticleListBlockRecord {\n  __typename\n  id\n}"): (typeof documents)["query Page {\n  allPages {\n    ...Page\n  }\n}\n\nquery Publication {\n  allPublications {\n    ...Publication\n  }\n}\n\nquery Prompt {\n  prompt {\n    ...Prompt\n  }\n}\n\nquery Site {\n  _site {\n    globalSeo {\n      siteName\n      titleSuffix\n      fallbackSeo {\n        title\n        description\n      }\n    }\n  }\n}\n\nfragment Page on PageRecord {\n  navigationLabel\n  slug\n  hidden\n  content {\n    value\n    blocks {\n      __typename\n      ...ArticleListBlock\n    }\n  }\n  seo {\n    title\n    description\n  }\n}\n\nfragment Publication on PublicationRecord {\n  __typename\n  id\n  organization\n  rssLink\n  enabled\n}\n\nfragment Prompt on PromptRecord {\n  __typename\n  system\n  user\n}\n\nfragment ArticleListBlock on ArticleListBlockRecord {\n  __typename\n  id\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

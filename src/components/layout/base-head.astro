@@ -3,10 +3,10 @@ const { title, description } = Astro.props;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="description" content={description} />
 <meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<title>buone.news - {title}</title>
-<meta name="description" content={description} />
