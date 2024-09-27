@@ -45,7 +45,6 @@ export const extractArticles = async (publications: PublicationFragment[]) => {
   );
 
   const data = articles.flat();
-  data.sort((a, b) => b.pubDate - a.pubDate);
 
   return data;
 };

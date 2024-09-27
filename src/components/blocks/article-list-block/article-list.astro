@@ -15,6 +15,7 @@ const promises = Object.entries(grouped).map(async ([, articles]) => {
 });
 
 const evaluated = await Promise.all(promises).then((data) => data.flat());
+evaluated.sort((a, b) => b.article.pubDate - a.article.pubDate);
 ---
 <section class="divide-y divide-slate-200">
   {evaluated.map((data) => (
