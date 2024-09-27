@@ -6,6 +6,19 @@ query Publication {
   }
 }
 
+query AiPrompt {
+  aiPrompt {
+    system
+    user
+  }
+}
+
+query PageSlug {
+  allPages {
+    slug
+  }
+}
+
 query Page($slug: String!) {
   page(filter: { slug: { eq: $slug } }) {
     id

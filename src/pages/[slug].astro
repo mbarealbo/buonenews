@@ -1,0 +1,22 @@
+---
+import type { InferGetStaticParamsType, GetStaticPaths } from "astro"
+import { PageSlugDocument } from '@/codegen/graphql';
+import { createGraphQLClient } from '@/utils';
+import PageLayout from '@/layouts/page-layout.astro';
+
+export const getStaticPaths = (async () => {
+  const client = createGraphQLClient();
+  const query = await client.request(PageSlugDocument);
+  return query.allPages.map((page) => ({
+    params: { slug: page.slug },
+  }));
+}) satisfies GetStaticPaths
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+
+const { slug } = Astro.params as Params;
+---
+<PageLayout>
+  <h1>{slug}</h1>
+  <!-- <ArticleList /> -->
+</PageLayout>

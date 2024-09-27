@@ -1,8 +1,8 @@
 import OpenAI from "openai";
-import { fetchAIPrompts } from "./fetch-ai-prompts.js";
+import { fetchAIPrompts } from "./fetch-ai-prompts";
 
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import type { Article } from "./extract-articles.js";
+import type { Article } from "./extract-articles";
 
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
@@ -76,6 +76,10 @@ async function getMessages(
   articles: Article[],
 ): Promise<ChatCompletionMessageParam[]> {
   const aiPrompts = await fetchAIPrompts();
+
+  if (!aiPrompts) {
+    throw new Error("Failed to fetch AI prompts");
+  }
 
   const compactArticles = articles.map((article) => ({
     title: article.title,

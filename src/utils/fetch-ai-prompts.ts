@@ -1,26 +1,8 @@
-import { gql } from "graphql-request";
-import { createGraphQLClient } from "./graphql-client.js";
-
-const document = gql`
-  query {
-    aiPrompt {
-      system
-      user
-    }
-  }
-`;
-
-type Prompt = {
-  system: string;
-  user: string;
-};
-
-type PromptQuery = {
-  aiPrompt: Prompt;
-};
+import { AiPromptDocument, type AiPromptQuery } from "@/codegen/graphql";
+import { createGraphQLClient } from "./graphql-client";
 
 export const fetchAIPrompts = async () => {
   const client = createGraphQLClient();
-  const query = await client.request<PromptQuery>(document);
+  const query = await client.request<AiPromptQuery>(AiPromptDocument);
   return query.aiPrompt;
 };

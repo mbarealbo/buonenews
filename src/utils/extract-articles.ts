@@ -1,9 +1,8 @@
+import type { PublicationRecord } from "@/codegen/graphql";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import { XMLParser } from "fast-xml-parser";
 import sanitize from "sanitize-html";
-
-import type { Publication } from "./fetch-publications";
 
 const parser = new XMLParser();
 
@@ -19,7 +18,7 @@ export type Article = RssItem & {
   organization: string;
 };
 
-export const extractArticles = async (publications: Publication[]) => {
+export const extractArticles = async (publications: PublicationRecord[]) => {
   const articles = await Promise.all(
     publications.map(async (publication) => {
       const xml = await downloadXml(publication.rssLink);

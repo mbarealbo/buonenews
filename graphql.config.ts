@@ -2,11 +2,12 @@ import "dotenv/config";
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
+  overwrite: true,
   schema: {
     [process.env.DATOCMS_API_URL as string]: {
       headers: {
         Authorization: process.env.DATOCMS_API_TOKEN as string,
-        "X-Exclude-Invalid": true,
+        "X-Exclude-Invalid": "true",
       },
     },
   },
@@ -15,8 +16,10 @@ const config: CodegenConfig = {
   generates: {
     "./src/codegen/": {
       preset: "client",
+      presetConfig: {
+        fragmentMasking: false,
+      },
       config: {
-        // documentMode: "string",
         useIndexSignature: true,
         strictScalars: true,
         scalars: {
