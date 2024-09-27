@@ -1,0 +1,18 @@
+---
+interface Props {
+  node: {
+    level: number;
+  };
+}
+
+const { node } = Astro.props;
+
+const cssClasses: Record<string, string> = {
+  "1": "font-medium tracking-tight text-2xl md:text-4xl my-8 px-6",
+};
+
+const Tag = `h${node.level}`;
+---
+<Tag class:list={[cssClasses[String(node.level)]]}>
+  <slot />
+</Tag>

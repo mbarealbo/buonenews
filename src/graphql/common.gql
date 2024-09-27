@@ -1,0 +1,66 @@
+query Page {
+  allPages {
+    ...Page
+  }
+}
+
+query Publication {
+  allPublications {
+    ...Publication
+  }
+}
+
+query Prompt {
+  prompt {
+    ...Prompt
+  }
+}
+
+query Site {
+  _site {
+    globalSeo {
+      siteName
+      titleSuffix
+      fallbackSeo {
+        title
+        description
+      }
+    }
+  }
+}
+
+fragment Page on PageRecord {
+  navigationLabel
+  slug
+  hidden
+  content {
+    value
+    blocks {
+      __typename
+      ...ArticleListBlock
+    }
+  }
+  seo {
+    title
+    description
+  }
+}
+
+fragment Publication on PublicationRecord {
+  __typename
+  id
+  organization
+  rssLink
+  enabled
+}
+
+fragment Prompt on PromptRecord {
+  __typename
+  system
+  user
+}
+
+fragment ArticleListBlock on ArticleListBlockRecord {
+  __typename
+  id
+}

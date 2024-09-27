@@ -1,8 +1,18 @@
 ---
-import type { Sentiment } from "../utils/evaluate-articles";
+import type { Sentiment } from "./openai/evaluate-articles";
+
+interface Props {
+  link: string;
+  organization: string;
+  datetime: string;
+  title: string;
+  sentiment: Sentiment;
+  comment: string;
+}
+
 const { link, organization, datetime, title, sentiment, comment } = Astro.props;
 
-const colors: { [key in Sentiment]: string } = {
+const colors = {
   positive: "text-green-500",
   negative: "text-red-500",
   neutral: "text-sky-500",

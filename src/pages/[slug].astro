@@ -1,0 +1,51 @@
+---
+import ArticleListBlock from "@/components/blocks/article-list-block/article-list.astro";
+import Heading from "@/components/typography/heading.astro";
+import Link from "@/components/typography/link.astro";
+import Paragraph from "@/components/typography/paragraph.astro";
+import PageLayout from "@/layouts/page-layout.astro";
+import * as datocms from "@/utils/datocms";
+import { StructuredText } from "@datocms/astro/StructuredText";
+import type { InferGetStaticPropsType } from "astro";
+
+export const prerender = true;
+
+export const getStaticPaths = async () => {
+  const pages = await datocms.fetchPages();
+
+  return pages.map((page) => {
+    return {
+      params: { slug: page.slug },
+      props: { page, pages },
+    };
+  });
+};
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { globalSeo } = await datocms.fetchSiteData();
+const { page, pages } = Astro.props as Props;
+
+const titleSuffix = globalSeo?.titleSuffix || "";
+const fallbackSeo = globalSeo?.fallbackSeo || {};
+
+const title = page.seo?.title || fallbackSeo.title || "";
+const description = page.seo?.description || fallbackSeo.description || "";
+---
+<PageLayout 
+  title={`${title} - ${titleSuffix}`}
+  description={description} 
+  pages={pages}
+>
+  <StructuredText 
+    data={page.content} 
+    blockComponents={{ 
+      ArticleListBlockRecord: ArticleListBlock
+    }}
+    nodeOverrides={{
+      heading: Heading,
+      paragraph: Paragraph,
+      link: Link
+    }}
+  />
+</PageLayout>

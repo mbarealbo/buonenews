@@ -1,0 +1,32 @@
+---
+import type { PageFragment } from "@/codegen/graphql";
+import BaseHead from "../components/layout/base-head.astro";
+import Footer from "../components/layout/footer.astro";
+import Header from "../components/layout/header.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  pages: PageFragment[];
+}
+
+const { title, description, pages } = Astro.props;
+---
+<!doctype html>
+<html lang="it">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <header>
+      <Header pages={pages} />
+    </header>
+    <main class="flex-grow mx-auto max-w-2xl py-6">
+      <slot />
+    </main>
+    <footer class="p-8 border-border border-t border-t-slate-200">
+      <Footer />
+    </footer>
+	</body>
+</html>
+

@@ -10,4 +10,7 @@ export default defineConfig({
   integrations: [tailwind()],
   output: "server",
   adapter: vercel({ isr: { expiration: 60 } }),
+  redirects: {
+    "/": "/home",
+  },
 });
