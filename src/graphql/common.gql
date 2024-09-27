@@ -38,6 +38,7 @@ fragment Page on PageRecord {
     blocks {
       __typename
       ...ArticleListBlock
+      ...PublicationLogoBlock
     }
   }
   seo {
@@ -52,6 +53,11 @@ fragment Publication on PublicationRecord {
   organization
   rssLink
   enabled
+  logo {
+    responsiveImage(imgixParams: { auto: format, h: 33 }) {
+      ...ResponsiveImage
+    }
+  }
 }
 
 fragment Prompt on PromptRecord {
@@ -60,7 +66,15 @@ fragment Prompt on PromptRecord {
   user
 }
 
-fragment ArticleListBlock on ArticleListBlockRecord {
-  __typename
-  id
+fragment ResponsiveImage on ResponsiveImage {
+  srcSet
+  webpSrcSet
+  sizes
+  src
+  width
+  height
+  aspectRatio
+  alt
+  title
+  base64
 }

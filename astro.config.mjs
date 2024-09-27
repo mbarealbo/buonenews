@@ -12,6 +12,9 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   output: "server",
   adapter: vercel({ isr: { expiration: 60 } }),
+  image: {
+    domains: ["www.datocms-assets.com"],
+  },
   redirects: {
     "/": "/home",
   },

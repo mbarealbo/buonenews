@@ -1,11 +1,11 @@
+import * as datocms from "@/utils/datocms";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { fetchPrompt } from "../datocms/fetch-prompt";
 import type { Article } from "../utils/extract-articles";
 
 export async function getMessages(
   articles: Article[],
 ): Promise<ChatCompletionMessageParam[]> {
-  const prompts = await fetchPrompt();
+  const prompts = await datocms.fetchPrompt();
 
   if (!prompts) {
     throw new Error("failed to fetch AI Prompts");

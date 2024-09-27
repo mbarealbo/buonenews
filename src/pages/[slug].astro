@@ -1,5 +1,6 @@
 ---
 import ArticleListBlock from "@/components/blocks/article-list-block/article-list.astro";
+import PublicationLogoBlock from "@/components/blocks/publication-logo-block/publication-logo-block.astro";
 import Heading from "@/components/typography/heading.astro";
 import Link from "@/components/typography/link.astro";
 import Paragraph from "@/components/typography/paragraph.astro";
@@ -40,7 +41,8 @@ const description = page.seo?.description || fallbackSeo.description || "";
   <StructuredText 
     data={page.content} 
     blockComponents={{ 
-      ArticleListBlockRecord: ArticleListBlock
+      ArticleListBlockRecord: ArticleListBlock,
+      PublicationLogoBlockRecord: PublicationLogoBlock
     }}
     nodeOverrides={{
       heading: Heading,

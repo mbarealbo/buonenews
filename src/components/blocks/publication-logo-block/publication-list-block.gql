@@ -1,0 +1,3 @@
+fragment PublicationLogoBlock on PublicationLogoBlockRecord {
+  id
+}

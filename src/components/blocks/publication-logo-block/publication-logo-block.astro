@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import type { ResponsiveImage } from "@/codegen/graphql";
+import * as datocms from "@/utils/datocms";
+
+const pubs = await datocms.fetchPublications();
+const logos = pubs.map((pub) => pub.logo.responsiveImage as ResponsiveImage);
+---
+<div class="flex justify-center gap-10 flex-wrap px-6 py-8 border-t border-b border-slate-200"> 
+  {logos.map((logo) => (
+    <Image
+      src={logo.src}
+      alt={logo.alt || ""}
+      width={logo.width}
+      height={logo.height}
+    />
+  ))}
+</div>
