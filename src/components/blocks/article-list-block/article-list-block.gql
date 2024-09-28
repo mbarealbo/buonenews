@@ -1,3 +1,23 @@
+query EvaluatedArticle($sentiment: String) {
+  evaluatedArticle(filter: { aiSentiment: { eq: $sentiment } }) {
+    ...EvaluatedArticle
+  }
+}
+
+fragment EvaluatedArticle on EvaluatedArticleRecord {
+  id
+  title
+  description
+  link
+  publishedDatetime
+  formattedDatetime
+  publication {
+    ...Publication
+  }
+  aiSentiment
+  aiComment
+}
+
 fragment ArticleListBlock on ArticleListBlockRecord {
   id
 }

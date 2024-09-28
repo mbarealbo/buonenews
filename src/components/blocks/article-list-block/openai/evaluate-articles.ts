@@ -16,10 +16,9 @@ type ChatAnswer = {
   comment: string;
 };
 
-type EvaluatedArticle = {
-  article: Article;
-  sentiment: Sentiment;
-  comment: string;
+export type EvaluatedArticle = Article & {
+  aiSentiment: Sentiment;
+  aiComment: string;
 };
 
 export const evaluateArticles = async (
