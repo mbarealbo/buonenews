@@ -1,14 +1,14 @@
 ---
-import { syncEvaluatedArticles } from "@/utils/articles/sync-evaluated-articles";
+// import { syncEvaluatedArticles } from "@/utils/articles/sync-evaluated-articles";
 import * as datocms from "@/utils/datocms/content-delivery-api";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import ArticleDetail from "./article-detail.astro";
 
-await syncEvaluatedArticles({
-  maxArticlesPerPublication: 3,
-  maxArticlesStored: 30,
-});
+// await syncEvaluatedArticles({
+//   maxArticlesPerPublication: 3,
+//   maxArticlesStored: 30,
+// });
 
 const articles = await datocms.fetchEvaluatedArticles();
 
