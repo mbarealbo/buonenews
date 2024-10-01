@@ -10,7 +10,6 @@ fragment EvaluatedArticle on EvaluatedArticleRecord {
   description
   link
   publishedDatetime
-  formattedDatetime
   publication {
     id
     organization

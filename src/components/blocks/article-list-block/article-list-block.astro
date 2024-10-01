@@ -1,11 +1,20 @@
 ---
 import * as datocms from "@/utils/datocms/content-delivery-api";
+import { format } from "date-fns";
+import { it } from "date-fns/locale";
 import ArticleDetail from "./article-detail.astro";
 
 const articles = await datocms.fetchEvaluatedArticles();
+
+const enhancedArticles = articles.map((article) => ({
+  ...article,
+  formattedDatetime: format(article.publishedDatetime, "d MMMM yyyy, HH:mm", {
+    locale: it,
+  }),
+}));
 ---
 <section class="divide-y divide-slate-200">
-  {articles.map((article) => (
+  {enhancedArticles.map((article) => (
     <ArticleDetail
       link={article.link}
       organization={article.publication.organization}
