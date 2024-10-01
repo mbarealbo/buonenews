@@ -187,6 +187,104 @@ export type CreatedAtFilter = {
   neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type EvaluatedArticleModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<EvaluatedArticleModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<EvaluatedArticleModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  aiComment?: InputMaybe<TextFilter>;
+  aiSentiment?: InputMaybe<StringFilter>;
+  description?: InputMaybe<TextFilter>;
+  formattedDatetime?: InputMaybe<StringFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  link?: InputMaybe<StringFilter>;
+  publication?: InputMaybe<LinkFilter>;
+  publishedDatetime?: InputMaybe<IntegerFilter>;
+  title?: InputMaybe<StringFilter>;
+};
+
+export enum EvaluatedArticleModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  AiSentimentAsc = 'aiSentiment_ASC',
+  AiSentimentDesc = 'aiSentiment_DESC',
+  FormattedDatetimeAsc = 'formattedDatetime_ASC',
+  FormattedDatetimeDesc = 'formattedDatetime_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LinkAsc = 'link_ASC',
+  LinkDesc = 'link_DESC',
+  PublishedDatetimeAsc = 'publishedDatetime_ASC',
+  PublishedDatetimeDesc = 'publishedDatetime_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+/** Record of type ✏️ Evaluated Article (evaluated_article) */
+export type EvaluatedArticleRecord = RecordInterface & {
+  __typename?: 'EvaluatedArticleRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']['output']>;
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  aiComment: Scalars['String']['output'];
+  aiSentiment?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
+  formattedDatetime: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
+  link: Scalars['String']['output'];
+  publication: PublicationRecord;
+  publishedDatetime: Scalars['IntType']['output'];
+  title: Scalars['String']['output'];
+};
+
+
+/** Record of type ✏️ Evaluated Article (evaluated_article) */
+export type EvaluatedArticleRecord_SeoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type ✏️ Evaluated Article (evaluated_article) */
+export type EvaluatedArticleRecordAiCommentArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Record of type ✏️ Evaluated Article (evaluated_article) */
+export type EvaluatedArticleRecordDescriptionArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum FaviconType {
   AppleTouchIcon = 'appleTouchIcon',
   Icon = 'icon',
@@ -2013,6 +2111,24 @@ export type InUseFilter = {
   eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
+/** Specifies how to filter Integer fields */
+export type IntegerFilter = {
+  /** Search for records with an exact match */
+  eq?: InputMaybe<Scalars['IntType']['input']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with a value that's strictly greater than the one specified */
+  gt?: InputMaybe<Scalars['IntType']['input']>;
+  /** Filter records with a value that's greater than or equal to the one specified */
+  gte?: InputMaybe<Scalars['IntType']['input']>;
+  /** Filter records with a value that's less than the one specified */
+  lt?: InputMaybe<Scalars['IntType']['input']>;
+  /** Filter records with a value that's less or equal than the one specified */
+  lte?: InputMaybe<Scalars['IntType']['input']>;
+  /** Exclude records with an exact match */
+  neq?: InputMaybe<Scalars['IntType']['input']>;
+};
+
 /** Specifies how to filter by ID */
 export type ItemIdFilter = {
   /** Search the record with the specified ID */
@@ -2030,6 +2146,20 @@ export enum ItemStatus {
   Published = 'published',
   Updated = 'updated'
 }
+
+/** Specifies how to filter Single-link fields */
+export type LinkFilter = {
+  /** Search for records with an exact match. The specified value must be a Record ID */
+  eq?: InputMaybe<Scalars['ItemId']['input']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records linked to one of the specified records */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+  /** Exclude records with an exact match. The specified value must be a Record ID */
+  neq?: InputMaybe<Scalars['ItemId']['input']>;
+  /** Filter records not linked to one of the specified records */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+};
 
 export enum MuxThumbnailFormatType {
   Gif = 'gif',
@@ -2227,6 +2357,7 @@ export type PublicationModelFilter = {
   id?: InputMaybe<ItemIdFilter>;
   logo?: InputMaybe<FileFilter>;
   organization?: InputMaybe<StringFilter>;
+  position?: InputMaybe<PositionFilter>;
   rssLink?: InputMaybe<StringFilter>;
 };
 
@@ -2253,6 +2384,8 @@ export enum PublicationModelOrderBy {
   IdDesc = 'id_DESC',
   OrganizationAsc = 'organization_ASC',
   OrganizationDesc = 'organization_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
   RssLinkAsc = 'rssLink_ASC',
   RssLinkDesc = 'rssLink_DESC'
 }
@@ -2277,6 +2410,7 @@ export type PublicationRecord = RecordInterface & {
   id: Scalars['ItemId']['output'];
   logo: AltFileField;
   organization: Scalars['String']['output'];
+  position?: Maybe<Scalars['IntType']['output']>;
   rssLink: Scalars['String']['output'];
 };
 
@@ -2308,6 +2442,8 @@ export type PublishedAtFilter = {
 export type Query = {
   __typename?: 'Query';
   /** Returns meta information regarding a record collection */
+  _allEvaluatedArticlesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allPagesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allPublicationsMeta: CollectionMetadata;
@@ -2316,11 +2452,15 @@ export type Query = {
   /** Returns the single instance record */
   _site: Site;
   /** Returns a collection of records */
+  allEvaluatedArticles: Array<EvaluatedArticleRecord>;
+  /** Returns a collection of records */
   allPages: Array<PageRecord>;
   /** Returns a collection of records */
   allPublications: Array<PublicationRecord>;
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
+  /** Returns a specific record */
+  evaluatedArticle?: Maybe<EvaluatedArticleRecord>;
   /** Returns a specific record */
   page?: Maybe<PageRecord>;
   /** Returns the single instance record */
@@ -2329,6 +2469,13 @@ export type Query = {
   publication?: Maybe<PublicationRecord>;
   /** Returns a specific asset */
   upload?: Maybe<FileField>;
+};
+
+
+/** The query root for this schema */
+export type Query_AllEvaluatedArticlesMetaArgs = {
+  filter?: InputMaybe<EvaluatedArticleModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -2357,6 +2504,17 @@ export type Query_AllUploadsMetaArgs = {
 export type Query_SiteArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+export type QueryAllEvaluatedArticlesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<EvaluatedArticleModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<EvaluatedArticleModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -2390,6 +2548,15 @@ export type QueryAllUploadsArgs = {
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+export type QueryEvaluatedArticleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<EvaluatedArticleModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<EvaluatedArticleModelOrderBy>>>;
 };
 
 
@@ -2592,6 +2759,20 @@ export type Tag = {
   attributes?: Maybe<Scalars['MetaTagAttributes']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   tag: Scalars['String']['output'];
+};
+
+/** Specifies how to filter text fields */
+export type TextFilter = {
+  /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with the specified field set as blank (null or empty string) */
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with the specified field present (neither null, nor empty string) */
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records based on a regular expression */
+  matches?: InputMaybe<StringMatchesFilter>;
+  /** Exclude records based on a regular expression */
+  notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
 /** Specifies how to filter by upload type */

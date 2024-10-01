@@ -7,25 +7,15 @@ import Paragraph from "@/components/typography/paragraph.astro";
 import PageLayout from "@/layouts/page-layout.astro";
 import * as datocms from "@/utils/datocms";
 import { StructuredText } from "@datocms/astro/StructuredText";
-import type { InferGetStaticPropsType } from "astro";
 
-export const prerender = true;
+const pages = await datocms.fetchPages();
+const page = pages.find((page) => page.slug === Astro.params.slug);
 
-export const getStaticPaths = async () => {
-  const pages = await datocms.fetchPages();
-
-  return pages.map((page) => {
-    return {
-      params: { slug: page.slug },
-      props: { page, pages },
-    };
-  });
-};
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+if (!page) {
+  return Astro.redirect("/404");
+}
 
 const { globalSeo } = await datocms.fetchSiteData();
-const { page, pages } = Astro.props as Props;
 
 const titleSuffix = globalSeo?.titleSuffix || "";
 const fallbackSeo = globalSeo?.fallbackSeo || {};
