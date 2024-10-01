@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
-export const createGraphQLClient = () => {
+export const createCDAClient = () => {
   const client = new GraphQLClient(import.meta.env.DATOCMS_API_URL, {
     headers: {
       Authorization: `Bearer ${import.meta.env.DATOCMS_API_TOKEN}`,

@@ -1,11 +1,11 @@
 ---
-import ArticleListBlock from "@/components/blocks/article-list-block/article-list.astro";
+import ArticleListBlock from "@/components/blocks/article-list-block/article-list-block.astro";
 import PublicationLogoBlock from "@/components/blocks/publication-logo-block/publication-logo-block.astro";
 import Heading from "@/components/typography/heading.astro";
 import Link from "@/components/typography/link.astro";
 import Paragraph from "@/components/typography/paragraph.astro";
 import PageLayout from "@/layouts/page-layout.astro";
-import * as datocms from "@/utils/datocms";
+import * as datocms from "@/utils/datocms/content-delivery-api";
 import { StructuredText } from "@datocms/astro/StructuredText";
 
 const pages = await datocms.fetchPages();
@@ -29,7 +29,7 @@ const description = page.seo?.description || fallbackSeo.description || "";
   pages={pages}
 >
   <StructuredText 
-    data={page.content} 
+    data={page.content}
     blockComponents={{ 
       ArticleListBlockRecord: ArticleListBlock,
       PublicationLogoBlockRecord: PublicationLogoBlock
@@ -37,7 +37,7 @@ const description = page.seo?.description || fallbackSeo.description || "";
     nodeOverrides={{
       heading: Heading,
       paragraph: Paragraph,
-      link: Link
+      link: Link,
     }}
   />
 </PageLayout>

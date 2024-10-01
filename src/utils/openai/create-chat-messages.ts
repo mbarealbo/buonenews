@@ -1,9 +1,10 @@
-import * as datocms from "@/utils/datocms";
-import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import type { Article } from "../utils/extract-articles";
+import * as datocms from "@/utils/datocms/content-delivery-api";
 
-export async function getMessages(
-  articles: Article[],
+import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import type { XmlArticle } from "../articles/types";
+
+export async function createChatMessages(
+  xmlArticles: XmlArticle[],
 ): Promise<ChatCompletionMessageParam[]> {
   const prompts = await datocms.fetchPrompt();
 
@@ -11,17 +12,17 @@ export async function getMessages(
     throw new Error("failed to fetch AI Prompts");
   }
 
-  const compactArticles = articles.map((article) => ({
+  const compactXmlArticles = xmlArticles.map((article) => ({
     title: article.title,
     description: article.description,
   }));
 
   const compiled = new Function(
     "data",
-    `const { items } = data; return \`${prompts.user.replace("{{items}}", JSON.stringify(compactArticles))}\`;`,
+    `const { items } = data; return \`${prompts.user.replace("{{items}}", JSON.stringify(compactXmlArticles))}\`;`,
   );
 
-  const userContent = compiled({ items: compactArticles });
+  const userContent = compiled({ items: compactXmlArticles });
 
   return [
     {

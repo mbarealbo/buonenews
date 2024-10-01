@@ -48,7 +48,6 @@ fragment Page on PageRecord {
 }
 
 fragment Publication on PublicationRecord {
-  __typename
   id
   organization
   rssLink
@@ -61,7 +60,6 @@ fragment Publication on PublicationRecord {
 }
 
 fragment Prompt on PromptRecord {
-  __typename
   system
   user
 }

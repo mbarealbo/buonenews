@@ -1,6 +1,6 @@
-import type { Article } from "./extract-articles";
+import type { XmlArticle } from "./types";
 
-export function isValidArticle(article: Article) {
+export function isValidXmlArticle(article: XmlArticle) {
   return (
     article.title &&
     article.description &&

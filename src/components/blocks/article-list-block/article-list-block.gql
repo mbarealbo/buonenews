@@ -1,3 +1,23 @@
+query AllEvaluatedArticles($sentiment: String) {
+  allEvaluatedArticles(filter: { aiSentiment: { eq: $sentiment } }, orderBy: [publishedDatetime_DESC]) {
+    ...EvaluatedArticle
+  }
+}
+
+fragment EvaluatedArticle on EvaluatedArticleRecord {
+  id
+  title
+  description
+  link
+  publishedDatetime
+  publication {
+    id
+    organization
+  }
+  aiSentiment
+  aiComment
+}
+
 fragment ArticleListBlock on ArticleListBlockRecord {
   id
 }
