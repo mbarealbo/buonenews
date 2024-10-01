@@ -36,6 +36,7 @@ fragment Page on PageRecord {
   content {
     value
     blocks {
+      __typename
       ...ArticleListBlock
       ...PublicationLogoBlock
     }

@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 
+import type { EvaluatedArticleFragment } from "@/codegen/graphql";
 import type { Article } from "../utils/extract-articles";
 import { getMessages } from "./get-messages";
 import { parseChatCompletion } from "./parse-chat-completion";
@@ -16,14 +17,10 @@ type ChatAnswer = {
   comment: string;
 };
 
-export type EvaluatedArticle = Article & {
-  aiSentiment: Sentiment;
-  aiComment: string;
-};
-
 export const evaluateArticles = async (
   articles: Article[],
-): Promise<EvaluatedArticle[]> => {
+  publications: PublicationFragment[],
+): Promise<EvaluatedArticleFragment[]> => {
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: await getMessages(articles),
@@ -49,9 +46,27 @@ export const evaluateArticles = async (
     }
 
     return {
-      article,
-      sentiment: aiAnswer.sentiment,
-      comment: aiAnswer.comment,
+      publication: {
+        logo:
+      }
     };
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

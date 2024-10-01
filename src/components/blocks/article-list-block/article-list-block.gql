@@ -1,5 +1,5 @@
-query EvaluatedArticle($sentiment: String) {
-  evaluatedArticle(filter: { aiSentiment: { eq: $sentiment } }) {
+query AllEvaluatedArticles($sentiment: String) {
+  allEvaluatedArticles(filter: { aiSentiment: { eq: $sentiment } }, orderBy: [publishedDatetime_DESC]) {
     ...EvaluatedArticle
   }
 }
@@ -12,7 +12,8 @@ fragment EvaluatedArticle on EvaluatedArticleRecord {
   publishedDatetime
   formattedDatetime
   publication {
-    ...Publication
+    id
+    organization
   }
   aiSentiment
   aiComment

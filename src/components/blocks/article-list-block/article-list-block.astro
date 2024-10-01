@@ -1,0 +1,18 @@
+---
+import * as datocms from "@/utils/datocms/content-delivery-api";
+import ArticleDetail from "./article-detail.astro";
+
+const articles = await datocms.fetchEvaluatedArticles();
+---
+<section class="divide-y divide-slate-200">
+  {articles.map((article) => (
+    <ArticleDetail
+      link={article.link}
+      organization={article.publication.organization}
+      datetime={article.formattedDatetime} 
+      title={article.title} 
+      sentiment={article.aiSentiment} 
+      comment={article.aiComment}
+    />
+  ))}
+</section>

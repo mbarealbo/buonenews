@@ -1,18 +1,17 @@
 ---
-import type { Sentiment } from "./openai/evaluate-articles";
 
 interface Props {
   link: string;
   organization: string;
   datetime: string;
   title: string;
-  sentiment: Sentiment;
+  sentiment: string;
   comment: string;
 }
 
 const { link, organization, datetime, title, sentiment, comment } = Astro.props;
 
-const colors = {
+const colors: Record<string, string> = {
   positive: "text-green-500",
   negative: "text-red-500",
   neutral: "text-sky-500",
@@ -24,7 +23,7 @@ const colors = {
       <span class="font-semibold">{organization},</span>
       <time>{datetime}</time>
       <span> — </span>
-      <span class=`font-bold ${colors[sentiment as Sentiment]}`>{sentiment}</span>
+      <span class=`font-bold ${colors[sentiment as string]}`>{sentiment}</span>
     </div>
     <h1 class="text-lg font-bold text-slate-900">{title}</h1>
     <div class="text-base leading-7 text-slate-700">

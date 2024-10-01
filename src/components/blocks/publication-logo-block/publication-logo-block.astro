@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { ResponsiveImage } from "@/codegen/graphql";
-import * as datocms from "@/utils/datocms";
+import * as datocms from "@/utils/datocms/content-delivery-api";
 
 const pubs = await datocms.fetchPublications();
 const logos = pubs.map((pub) => pub.logo.responsiveImage as ResponsiveImage);
