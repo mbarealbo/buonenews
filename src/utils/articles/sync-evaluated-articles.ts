@@ -2,7 +2,6 @@ import { fetchPublications } from "../datocms/content-delivery-api";
 import {
   type EvaluatedArticle,
   createEvaluatedArticles,
-  deleteEvaluatedArticles,
   listEvaluatedArticles,
 } from "../datocms/content-management-api";
 import { evaluateXmlArticles } from "../openai";
@@ -10,7 +9,6 @@ import { extractXmlArticles } from "./extract-xml-articles";
 
 export const syncEvaluatedArticles = async ({
   maxArticlesPerPublication = 10,
-  maxArticlesStored = 30,
 }) => {
   /** Fetch all XML Articles from RSS Feeds */
   const pubs = await fetchPublications();
@@ -45,13 +43,5 @@ export const syncEvaluatedArticles = async ({
     );
 
     await createEvaluatedArticles(newArticles);
-  }
-
-  /** Delete old EvaluatedArticles in DatoCMS **/
-  const totals = articles.length + newXmlArticles.length;
-  const overflow = totals - maxArticlesStored;
-  if (totals > maxArticlesStored) {
-    const oldArticleIds = articles.slice(-overflow).map((a) => a.id);
-    await deleteEvaluatedArticles(oldArticleIds);
   }
 };

@@ -1,4 +1,4 @@
-import { syncEvaluatedArticles } from "@/utils/articles/sync-evaluated-articles";
+import { purgeEvaluatedArticles } from "@/utils/articles/purge-evaluated-articles";
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async ({ request }) => {
@@ -9,9 +9,9 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
-  console.time("syncEvaluatedArticles");
-  await syncEvaluatedArticles({ maxArticlesPerPublication: 3 });
-  console.timeEnd("syncEvaluatedArticles");
+  console.time("purgeEvaluatedArticles");
+  await purgeEvaluatedArticles({ maxArticlesStored: 30 });
+  console.timeEnd("purgeEvaluatedArticles");
 
   return new Response(JSON.stringify({ status: "ok" }));
 };
