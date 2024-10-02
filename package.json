@@ -4,8 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev:old": "tsx watch --env-file=.env src/index.ts",
-    "dev": "astro dev",
+    "dev": "node --inspect ./node_modules/astro/astro.js dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",

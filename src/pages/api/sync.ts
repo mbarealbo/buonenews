@@ -11,10 +11,12 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
+  console.time("syncEvaluatedArticles");
   await syncEvaluatedArticles({
     maxArticlesStored: 30,
     maxArticlesPerPublication: 5,
   });
+  console.timeEnd("syncEvaluatedArticles");
 
   return new Response(JSON.stringify({ status: "ok" }));
 };
