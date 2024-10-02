@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   console.time("syncEvaluatedArticles");
-  await syncEvaluatedArticles({ maxArticlesPerPublication: 3 });
+  await syncEvaluatedArticles({ maxArticlesPerPublication: 2 });
   console.timeEnd("syncEvaluatedArticles");
 
   return new Response(JSON.stringify({ status: "ok" }));
