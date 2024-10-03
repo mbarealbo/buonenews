@@ -1,4 +1,4 @@
-export type Sentiment = "positive" | "neutral" | "negative";
+export type Sentiment = "positive" | "negative";
 
 export type ChatAnswer = {
   title: string;
