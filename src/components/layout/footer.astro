@@ -1,10 +1,35 @@
 ---
+import type { PageFragment } from "@/codegen/graphql";
+
+interface Props {
+  pages: PageFragment[];
+}
+
+const pages = Astro.props.pages.filter((page) => page.showFooter);
 const year = new Date().getFullYear();
 ---
-<div class="text-center text-sm text-slate-900 space-y-1 ">
-  <p>buone.news © {year}</p> 
-  <p>
-    <a target="_blank" class="underline underline-offset-4 hover:text-orange-500" href="https://linkedin.com/in/alberto-abate">Alberto Abate</a>,
-    <a target="_blank" class="underline underline-offset-4 hover:text-orange-500" href="https://linkedin.com/in/cesconix">Francesco Pasqua</a>
-  </p>
+<div class="text-sm text-slate-900 w-full max-w-2xl mx-auto px-6">
+  <div>
+    <h1 class="text-base font-semibold leading-relaxed">buone.news & cattive.news</h1>
+    <span>Your AI-powered gateway to news.</span>
+  </div>
+
+  <div class="flex flex-col space-y-2 py-8">
+    {pages.map((page) => {
+      return (
+        <a
+          href={`/${page.slug}`}
+          class="whitespace-nowrap hover:text-orange-500"
+        >
+          {page.navigationLabel}
+        </a>
+      );
+    })}
+  </div>
+
+  <div>
+    © {year} —
+      <a target="_blank" class="hover:text-orange-500" href="https://linkedin.com/in/alberto-abate">Alberto Abate</a>,
+      <a target="_blank" class="hover:text-orange-500" href="https://linkedin.com/in/cesconix">Francesco Pasqua</a>
+    </div>
 </div>

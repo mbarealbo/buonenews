@@ -7,7 +7,7 @@ interface Props {
   pages: PageFragment[];
 }
 
-const pages = Astro.props.pages.filter((page) => !page.hidden);
+const pages = Astro.props.pages.filter((page) => page.showHeader);
 ---
 <div class="flex justify-between items-center gap-6 overflow-auto py-3 px-6 h-[66px]">
   <Logo client:load />

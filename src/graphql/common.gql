@@ -32,7 +32,8 @@ query Site {
 fragment Page on PageRecord {
   navigationLabel
   slug
-  hidden
+  showHeader
+  showFooter
   content {
     value
     blocks {
