@@ -9,10 +9,8 @@ export const fetchEvaluatedArticles = async (
   sentiment: Sentiment | null,
 ): Promise<EvaluatedArticleFragment[]> => {
   const client = createCDAClient();
-
-  const query = await client.request(AllEvaluatedArticlesDocument, {
-    sentiment,
-  });
+  const filter = sentiment ? { sentiment } : {};
+  const query = await client.request(AllEvaluatedArticlesDocument, filter);
 
   return query.allEvaluatedArticles;
 };

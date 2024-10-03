@@ -1,17 +1,12 @@
 ---
+import * as utils from "@/utils/common";
 import * as datocms from "@/utils/datocms/content-delivery-api";
-import type { Sentiment } from "@/utils/openai/types";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import ArticleDetail from "./article-detail.astro";
 
-const isProd = import.meta.env.PROD;
-
-let sentiment: Sentiment | null = null;
-if (isProd) {
-  sentiment = Astro.request.url.includes("buone") ? "positive" : "negative";
-}
-
+const domain = Astro.request.url;
+const sentiment = utils.getSentimentByDomain(domain);
 const articles = await datocms.fetchEvaluatedArticles(sentiment);
 
 const enhancedArticles = articles.map((article) => ({
