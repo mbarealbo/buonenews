@@ -6,9 +6,7 @@ type NavBarProps = {
 };
 
 const NavBar = (props: NavBarProps) => {
-  const [currentPath, setCurrentPath] = useState(
-    () => window.location.pathname,
-  );
+  const [currentPath, setCurrentPath] = useState("");
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
