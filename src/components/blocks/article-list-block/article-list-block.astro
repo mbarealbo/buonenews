@@ -1,20 +1,12 @@
 ---
-import * as utils from "@/utils/common";
+import * as articleUtils from "@/utils/articles";
+import * as commonUtils from "@/utils/common";
 import * as datocms from "@/utils/datocms/content-delivery-api";
-import { format } from "date-fns";
-import { it } from "date-fns/locale";
 import ArticleDetail from "./article-detail.astro";
 
-const domain = Astro.request.url;
-const sentiment = utils.getSentimentByDomain(domain);
+const sentiment = commonUtils.getSentimentByDomain(Astro.request.url);
 const articles = await datocms.fetchEvaluatedArticles(sentiment);
-
-const enhancedArticles = articles.map((article) => ({
-  ...article,
-  formattedDatetime: format(article.publishedDatetime, "d MMMM yyyy, HH:mm", {
-    locale: it,
-  }),
-}));
+const enhancedArticles = articles.map(articleUtils.enhanceArticle);
 ---
 <section class="divide-y divide-slate-200">
   {enhancedArticles.map((article) => (
