@@ -1,12 +1,18 @@
 import type { PageFragment } from "@/codegen/graphql";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavBarProps = {
   pages: PageFragment[];
 };
 
 const NavBar = (props: NavBarProps) => {
-  const [currentPath] = useState(() => window.location.pathname);
+  const [currentPath, setCurrentPath] = useState(
+    () => window.location.pathname,
+  );
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
 
   return (
     <nav className="flex gap-6">
