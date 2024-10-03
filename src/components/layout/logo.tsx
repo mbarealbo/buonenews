@@ -30,7 +30,7 @@ const Logo = () => {
     setMood(sentiment);
   }, []);
 
-  if (!mood) return null;
+  if (!mood) return <div></div>;
 
   return (
     <Select.Root value={mood} onValueChange={handleValueChange}>
