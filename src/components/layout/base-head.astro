@@ -1,22 +1,30 @@
 ---
 const { title, description } = Astro.props;
+
+// Aggiungi le dichiarazioni globali per TypeScript
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
 ---
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <meta name="description" content={description} />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/64295d9bb9902ee544992aeb/script.js" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/64295d9bb9902ee544992aeb/script.js" is:inline></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HDB4B7SCXR"></script>
-<script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HDB4B7SCXR" is:inline></script>
+<script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-HDB4B7SCXR');
 </script>
