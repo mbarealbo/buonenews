@@ -11,7 +11,7 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [tailwind(), react()],
   output: "server",
-  adapter: vercel({ isr: { expiration: 60 } }),
+  adapter: vercel({ isr: { expiration: 60 }, maxDuration: 60 }),
   image: {
     domains: ["www.datocms-assets.com"],
   },
