@@ -17,8 +17,8 @@ const { title, description, pages } = Astro.props;
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body class="flex flex-col min-h-screen">
-    <header>
+  <body class="relative flex flex-col min-h-screen">
+    <header class="sticky top-0 bg-white">
       <Header pages={pages} />
     </header>
     <main class="flex-grow mx-auto w-full max-w-2xl">
