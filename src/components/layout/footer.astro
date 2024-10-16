@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
     <span>Your AI-powered gateway to news.</span>
   </div>
 
-  <div class="flex flex-col space-y-2 py-8">
+  <div class="flex flex-col space-y-2 pt-6 pd-3">
     {pages.map((page) => {
       return (
         <a
@@ -27,9 +27,19 @@ const year = new Date().getFullYear();
     })}
   </div>
 
+  <div class="py-6">
+    <a href="https://www.buymeacoffee.com/buone.news" target="_blank">
+      <img class="inline-block h-8" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee">
+    </a>
+  </div>
+
   <div>
     © {year} —
       <a target="_blank" class="hover:text-orange-500" href="https://linkedin.com/in/alberto-abate">Alberto Abate</a>,
       <a target="_blank" class="hover:text-orange-500" href="https://linkedin.com/in/cesconix">Francesco Pasqua</a>
     </div>
 </div>
+
+
+
+
