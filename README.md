@@ -1,4 +1,4 @@
-# Buone News
+# Buone & Cattive News
 
 Buone News è un progetto che seleziona notizie positive e incoraggianti da una varietà di fonti per offrirti una visione più luminosa del mondo. Utilizzando l'intelligenza artificiale e feed RSS, Buone News filtra le buone notizie dalle cattive e le presenta sul sito [buone.news](https://buone.news).
 
@@ -92,6 +92,8 @@ Accogliamo contributi per migliorare il progetto! Puoi contribuire in vari modi:
 ## Licenza
 
 Buone News è rilasciato sotto la licenza MIT. Sentiti libero di usarlo, modificarlo e distribuirlo come preferisci.
+
+[Supporta il progetto su Buy Me a Coffee](https://buymeacoffee.com/buone.news)
 
 ## Contatti
 
