@@ -45,6 +45,14 @@ fragment Page on PageRecord {
   seo {
     title
     description
+    image {
+      responsiveImage(
+        imgixParams: { auto: format, w: 1200, h: 630, fit: crop }
+      ) {
+        src
+      }
+    }
+    twitterCard
   }
 }
 

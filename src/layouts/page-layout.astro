@@ -7,15 +7,24 @@ import Header from "../components/layout/header.astro";
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  favicon: string;
+  twitterCard: string;
   pages: PageFragment[];
 }
 
-const { title, description, pages } = Astro.props;
+const { title, description, image, favicon, twitterCard, pages } = Astro.props;
 ---
 <!doctype html>
 <html lang="it">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead 
+      title={title} 
+      description={description} 
+      image={image} 
+      favicon={favicon} 
+      twitterCard={twitterCard}
+    />
   </head>
   <body class="relative flex flex-col min-h-screen">
     <header class="sticky top-0 bg-white">

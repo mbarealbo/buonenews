@@ -15,17 +15,23 @@ if (!page) {
   return Astro.redirect("/404");
 }
 
-const { globalSeo } = await datocms.fetchSiteData();
+const { favicon, globalSeo } = await datocms.fetchSiteData();
 
 const titleSuffix = globalSeo?.titleSuffix || "";
 const fallbackSeo = globalSeo?.fallbackSeo || {};
+const faviconUrl = favicon?.url || "/favicon.png";
 
 const title = page.seo?.title || fallbackSeo.title || "";
 const description = page.seo?.description || fallbackSeo.description || "";
+const image = page.seo?.image?.responsiveImage?.src;
+const twitterCard = page.seo?.twitterCard || "summary_large_image";
 ---
 <PageLayout 
   title={`${title} - ${titleSuffix}`}
   description={description} 
+  image={image}
+  twitterCard={twitterCard}
+  favicon={faviconUrl}
   pages={pages}
 >
   <StructuredText 
