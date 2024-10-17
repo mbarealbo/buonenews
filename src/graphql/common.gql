@@ -18,6 +18,9 @@ query Prompt {
 
 query Site {
   _site {
+    favicon {
+      url
+    }
     globalSeo {
       siteName
       titleSuffix
