@@ -16,9 +16,6 @@ const config: CodegenConfig = {
   generates: {
     "./src/codegen/": {
       preset: "client",
-      presetConfig: {
-        fragmentMasking: false,
-      },
       config: {
         useTypeImports: true,
         useIndexSignature: true,
