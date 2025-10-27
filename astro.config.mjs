@@ -15,7 +15,4 @@ export default defineConfig({
   image: {
     domains: ["www.datocms-assets.com"],
   },
-  redirects: {
-    "/": "/home",
-  },
 });

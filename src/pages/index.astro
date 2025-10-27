@@ -1,0 +1,36 @@
+---
+import PageLayout from "@/layouts/page-layout.astro";
+import * as datocms from "@/utils/datocms/content-delivery-api";
+
+const pages = await datocms.fetchPages();
+const { favicon, globalSeo } = await datocms.fetchSiteData();
+
+const titleSuffix = globalSeo?.titleSuffix || "";
+const fallbackSeo = globalSeo?.fallbackSeo || {};
+const faviconUrl = favicon?.url || "/favicon.png";
+---
+
+<PageLayout
+  title={`Home - ${titleSuffix}`}
+  description={fallbackSeo.description || ""}
+  favicon={faviconUrl}
+  twitterCard="summary_large_image"
+  pages={pages}
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-6">Benvenuto su Buone News</h1>
+    <p class="text-lg mb-8">Il progetto è online e funzionante!</p>
+    <div class="space-y-4">
+      <h2 class="text-2xl font-semibold">Pagine disponibili:</h2>
+      <ul class="list-disc pl-6">
+        {pages.map((page) => (
+          <li>
+            <a href={`/${page.slug}`} class="text-blue-600 hover:underline">
+              {page.slug}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</PageLayout>
